@@ -10,7 +10,7 @@ import modelo.Tabuleiro;
 public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
-        Tabuleiro tabuleiro = new Tabuleiro(16, 30, 50);
+        Tabuleiro tabuleiro = new Tabuleiro(13, 13, 25);
         add(new PainelTabuleiro(tabuleiro));
         setTitle("Campo Minado");
         setSize(690, 438);

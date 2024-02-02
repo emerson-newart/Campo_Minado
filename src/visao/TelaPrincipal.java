@@ -9,13 +9,15 @@ import modelo.Tabuleiro;
  */
 public class TelaPrincipal extends JFrame {
 
+   
     public TelaPrincipal() {
-        Tabuleiro tabuleiro = new Tabuleiro(13, 13, 25);
+        Tabuleiro tabuleiro = new Tabuleiro(13, 20, 25);
         add(new PainelTabuleiro(tabuleiro));
-        setTitle("Campo Minado");
+
+        setTitle("Campo Minado - do Mano");
         setSize(690, 438);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
 
     }

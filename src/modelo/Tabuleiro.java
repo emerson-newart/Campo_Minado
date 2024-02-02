@@ -15,7 +15,6 @@ public class Tabuleiro implements CampoObservador {
     private final List<Consumer<ResultadoEvento>> observadores = new ArrayList<>();
 
     public Tabuleiro(int linhas, int colunas, int minas) {
-        super();
         this.linhas = linhas;
         this.colunas = colunas;
         this.minas = minas;
@@ -37,7 +36,6 @@ public class Tabuleiro implements CampoObservador {
     }
 
     public void abrir(int linha, int coluna) {
-
         campos.parallelStream()
                 .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
                 .findFirst()

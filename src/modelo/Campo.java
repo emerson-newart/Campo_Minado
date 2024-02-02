@@ -73,7 +73,7 @@ public class Campo {
             }
             setAberto(true);
 
-            if (vizinhacaSegura()) {
+            if (vizinhancaSegura()) {
                 vizinhos.forEach(v -> v.abrir());
             }
 
@@ -83,7 +83,7 @@ public class Campo {
         }
     }
 
-   public boolean vizinhacaSegura() {
+   public boolean vizinhancaSegura() {
         return vizinhos.stream().noneMatch(v -> v.minado);
     }
 
@@ -128,7 +128,7 @@ public class Campo {
         return desvendado || protegido;
     }
 
-    public int minasNaVizinhaca() {
+    public int minasNaVizinhanca() {
         return (int) vizinhos.stream().filter(v -> v.minado).count();
     }
 
@@ -136,6 +136,7 @@ public class Campo {
         aberto = false;
         minado = false;
         marcado = false;
+        notificarObservadores(CampoEvento.REINICIAR);
     }
 
 }

@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,9 +22,11 @@ public class BotaoCampo extends JButton implements CampoObservador, MouseListene
 
     public BotaoCampo(Campo campo) {
         this.campo = campo;
-        addMouseListener(this);
         setBackground(BG_PADRAO);
+        setOpaque(true);
         setBorder(BorderFactory.createBevelBorder(0));
+
+        addMouseListener(this);
         campo.registrarObservador(this);
     }
 
@@ -42,15 +45,21 @@ public class BotaoCampo extends JButton implements CampoObservador, MouseListene
             default:
                 aplicarEstiloPadrao();
         }
+        SwingUtilities.invokeLater(() -> {
+            repaint();
+            validate();
+        });
     }
 
     private void aplicarEstiloAbrir() {
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        if(campo.isMinado()){
+        if (campo.isMinado()) {
             setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bomba.png")));
-         return;
+            //setBackground(BG_EXPLODIR);
+            return;
         }
-        switch (campo.minasNaVizinhaca()) {
+        setBackground(BG_PADRAO);
+        switch (campo.minasNaVizinhanca()) {
             case 1:
                 setForeground(TEXTO_VERDE);
                 break;
@@ -65,25 +74,32 @@ public class BotaoCampo extends JButton implements CampoObservador, MouseListene
             case 6:
                 setForeground(Color.RED);
                 break;
-              default:
-                  setForeground(Color.PINK);
+            default:
+                setForeground(Color.PINK);
         }
-        String valor = !campo.vizinhacaSegura() ? campo.minasNaVizinhaca() + "":"";
+        String valor = !campo.vizinhancaSegura() ? campo.minasNaVizinhanca() + "" : "";
         setText(valor);
     }
 
     private void aplicarEstiloMarcar() {
         setBackground(BG_MARCADO);
-        setText("M");
+        setForeground(Color.BLACK);
+        setText("Stop");
     }
 
     private void aplicarEstiloExplodir() {
         setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bomba.png")));
+        //setBackground(BG_EXPLODIR);
+        //setForeground(Color.WHITE);
+        //setText("X");
     }
 
     private void aplicarEstiloPadrao() {
-         setBackground(BG_PADRAO);
-         setText("");
+        setBackground(BG_PADRAO);
+        setIcon(null);
+        setBorder(BorderFactory.createBevelBorder(0));
+        setText("");
+
     }
 
     public void mousePressed(MouseEvent e) {
@@ -106,4 +122,5 @@ public class BotaoCampo extends JButton implements CampoObservador, MouseListene
 
     public void mouseExited(MouseEvent e) {
     }
+
 }
